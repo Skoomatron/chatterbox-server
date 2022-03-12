@@ -11,9 +11,7 @@ var Parse = {
       type: 'POST',
       data: JSON.stringify(message),
       contentType: 'application/json',
-      success: function () {
-        console.log('poop');
-      },
+      success: successCB,
       error: errorCB || function (error) {
         console.error('chatterbox: Failed to create message', error);
       }

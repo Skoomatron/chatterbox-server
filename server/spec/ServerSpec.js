@@ -79,6 +79,7 @@ describe('Node Server Request Listener Function', function() {
     expect(messages[0].username).to.equal('Jono');
     expect(messages[0].text).to.equal('Do my bidding!');
     expect(res._ended).to.equal(true);
+
   });
 
   it('Should 404 when asked for a nonexistent file', function() {
