@@ -13,6 +13,7 @@ this file and include it in basic-server.js so that it actually works.
 **************************************************************/
 const server = require('./basic-server.js');
 var dataStorage = [];
+var poop = dataStorage;
 
 var requestHandler = function(request, response) {
 
@@ -27,16 +28,20 @@ var requestHandler = function(request, response) {
   // See the note below about CORS headers.
   var headers = defaultCorsHeaders;
   headers['Content-Type'] = 'text/plain';
+
   response.writeHead(200, headers);
 
   if (request.url.includes('/classes/messages')) {
     if (request.method === 'POST') {
-      console.log(request.on);
-      dataStorage.push(request._postData);
+      request.on('data', function(input) {
+        dataStorage.unshift(JSON.parse(input));
+      });
+
       response.writeHead(201, headers);
+      // response.end(JSON.stringify(poop));
     } else if (request.method === 'GET') {
       response.writeHead(200, 'GET successful');
-
+      // response.end(JSON.stringify(poop));
     }
   }
   if (!request.url.includes('/classes/messages')) {
